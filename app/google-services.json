@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "825191780421",
+    "project_id": "azis-8f9a0",
+    "storage_bucket": "azis-8f9a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825191780421:android:a4d1cb18067d3a91e5d32c",
+        "android_client_info": {
+          "package_name": "com.rezha.azis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825191780421-f89fc74a687uo9p8bm9dattfdpphbatk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8PCjLT6P1iSSg5JU6ar4ZOXOnS-9EBfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825191780421-f89fc74a687uo9p8bm9dattfdpphbatk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
