@@ -1,6 +1,7 @@
 package com.rezha.azis
 
 import android.content.Intent
+import android.graphics.Insets.add
 import android.os.Build
 import android.os.Build.ID
 import androidx.appcompat.app.AppCompatActivity
@@ -11,13 +12,13 @@ import android.view.Menu
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.core.view.OneShotPreDrawListener.add
 import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.rezha.azis.infaq.InfaqFragment
 import com.rezha.azis.sedekah.SedekahFragment
 import com.rezha.azis.zakat.ZakatFragment
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_home.tv_tgl_start
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.fragment_zakat.*
 import java.text.ParseException
@@ -25,6 +26,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -37,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
         val fragmentInfaq= InfaqFragment()
         val fragmentSedekah= SedekahFragment()
         var intentFragment= intent.getStringExtra("toLoad")
-        var handler=Handler()
 
         ic_zakat.setOnClickListener{
             menuZakat(fragmentZakat)
@@ -60,60 +61,6 @@ class HomeActivity : AppCompatActivity() {
                 menuSedekah(fragmentSedekah)
             }
         }
-
-        val today=LocalDate.now()
-        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
-        val formatted = today.format(formatter)
-        tv_tgl_start.setText(formatted)
-        tv_tgl_end.setText(formatted)
-        
-        val datePickerStart = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Pilih Tanggal")
-                .build()
-
-        tv_tgl_start.setOnClickListener {
-            handler.postDelayed({
-                var dice=false
-                if(!dice){
-                    tv_tgl_start.setBackgroundResource(R.color.premier)
-                }else{
-                    tv_tgl_start.setBackgroundResource(R.color.quartener)
-                }
-                dice=!dice
-            },10)
-            tv_tgl_start.setBackgroundResource(R.color.quartener)
-            datePickerStart.show(supportFragmentManager, datePickerStart.toString())
-        }
-
-        datePickerStart.addOnPositiveButtonClickListener {
-            tv_tgl_start.setText(formatDate(datePickerStart.headerText,"dd MMMM yyyy"))
-        }
-
-        val datePickerEnd = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Pilih Tanggal")
-                .build()
-
-        tv_tgl_end.setOnClickListener {
-            handler.postDelayed({
-                var dice=false
-                if(!dice){
-                    tv_tgl_end.setBackgroundResource(R.color.premier)
-                }else{
-                    tv_tgl_end.setBackgroundResource(R.color.quartener)
-                }
-                dice=!dice
-            },10)
-            tv_tgl_end.setBackgroundResource(R.color.quartener)
-            datePickerEnd.show(supportFragmentManager, datePickerEnd.toString())
-        }
-
-        datePickerEnd.addOnPositiveButtonClickListener {
-            tv_tgl_end.setText(formatDate(datePickerEnd.headerText,"dd MMMM yyyy"))
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
 
 
     }

@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "825191780421",
-    "project_id": "azis-8f9a0",
-    "storage_bucket": "azis-8f9a0.appspot.com"
+    "project_number": "265150751857",
+    "firebase_url": "https://azis-766f7-default-rtdb.firebaseio.com",
+    "project_id": "azis-766f7",
+    "storage_bucket": "azis-766f7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:825191780421:android:a4d1cb18067d3a91e5d32c",
+        "mobilesdk_app_id": "1:265150751857:android:3a3eeb4064ec935c9ca7d0",
         "android_client_info": {
           "package_name": "com.rezha.azis"
         }
       },
       "oauth_client": [
         {
-          "client_id": "825191780421-f89fc74a687uo9p8bm9dattfdpphbatk.apps.googleusercontent.com",
+          "client_id": "265150751857-l09sgd22ek9pk553kdft1je67c2qmubv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB8PCjLT6P1iSSg5JU6ar4ZOXOnS-9EBfM"
+          "current_key": "AIzaSyAdY36GZmu5L3OFWvnXW3GM03mCZNnazXA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "825191780421-f89fc74a687uo9p8bm9dattfdpphbatk.apps.googleusercontent.com",
+              "client_id": "265150751857-l09sgd22ek9pk553kdft1je67c2qmubv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
