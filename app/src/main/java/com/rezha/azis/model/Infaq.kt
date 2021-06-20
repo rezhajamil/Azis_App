@@ -7,8 +7,9 @@ import kotlinx.android.parcel.Parcelize
 data class Infaq(
         var nama:String?="",
         var alamat:String?="",
-        var hubungan_keluarga:String?="",
+//        var hubungan_keluarga:String?="",
         var keterangan:String?="",
+        var jenis:String?="",
         var beras: String?="",
         var uang:String?="",
         var tanggal:String?="",

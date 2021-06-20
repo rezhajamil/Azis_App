@@ -146,14 +146,17 @@
 
     <TextView
         android:id="@+id/tv_alamat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:fontFamily="@font/montserrat"
         android:text="Medan"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView29"
         app:layout_constraintTop_toTopOf="@+id/textView18" />
 
@@ -185,14 +188,17 @@
 
     <TextView
         android:id="@+id/tv_ket"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:fontFamily="@font/montserrat"
         android:text="-"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="@+id/textView25" />
 
@@ -300,7 +306,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_alamat" />
 
     <TextView
         android:id="@+id/textView21"
@@ -422,7 +428,7 @@
         android:text="Hapus Data"
         app:backgroundTint="#BB0A21"
         app:layout_constraintStart_toEndOf="@+id/btn_edit"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_ket" />
 
     <Button
         android:id="@+id/btn_edit"
@@ -433,6 +439,6 @@
         android:layout_marginTop="32dp"
         android:text="Edit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_ket" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

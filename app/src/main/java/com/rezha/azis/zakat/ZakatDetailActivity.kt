@@ -66,7 +66,7 @@ class ZakatDetailActivity : AppCompatActivity() {
         alert.setTitle("Hapus Data")
         alert.setPositiveButton("Hapus",DialogInterface.OnClickListener{
             dialog, which ->
-            val dbZakat=FirebaseDatabase.getInstance().getReference("Zakat").child(data.id.toString())
+            val dbZakat=FirebaseDatabase.getInstance().getReference("Transaksi").child(data.id.toString())
             dbZakat.removeValue()
             var intent=Intent(this@ZakatDetailActivity,HomeActivity::class.java).putExtra("toLoad","ZakatFragment")
             startActivity(intent)

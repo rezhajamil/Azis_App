@@ -8,6 +8,19 @@
     tools:context=".zakat.ZakatDetailActivity">
 
     <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:fontFamily="@font/montserrat"
+        android:text=":"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+    <TextView
         android:id="@+id/textView32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +28,7 @@
         android:text=":"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/textView36"
+        app:layout_constraintStart_toStartOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="@+id/textView22" />
 
     <TextView
@@ -44,13 +57,11 @@
         android:id="@+id/textView36"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:fontFamily="@font/montserrat"
         android:text=":"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textView25"
+        app:layout_constraintStart_toStartOf="@+id/textView35"
         app:layout_constraintTop_toTopOf="@+id/textView25" />
 
     <TextView
@@ -61,11 +72,11 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/montserrat"
-        android:text="Detail Pembayaran Infaq"
+        android:text="Detail Pembayaran Sedekah"
         android:textColor="@color/premier"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/iv_back_infaq"
+        app:layout_constraintStart_toEndOf="@+id/iv_back_sedekah"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -97,7 +108,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:fontFamily="@font/montserrat"
-        android:text="Infaq"
+        android:text="Sedekah"
         android:textColor="@color/premier"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -161,7 +172,7 @@
         android:text="5 Kg"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textView34"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="@+id/textView23" />
 
     <TextView
@@ -177,7 +188,7 @@
         android:textColor="@color/sekunder"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView36"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="@+id/textView25" />
 
     <TextView
@@ -190,7 +201,7 @@
         android:text="Rp.10000"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textView35"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="@+id/textView24" />
 
     <TextView
@@ -203,8 +214,21 @@
         android:text="02 April 2021"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textView32"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/tv_jenis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Zakat Fitrah"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
 
     <TextView
         android:id="@+id/textView28"
@@ -214,7 +238,7 @@
         android:text=":"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/textView29"
+        app:layout_constraintStart_toStartOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="@+id/textView17" />
 
     <TextView
@@ -225,7 +249,7 @@
         android:text=":"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/textView32"
+        app:layout_constraintStart_toStartOf="@+id/textView31"
         app:layout_constraintTop_toTopOf="@+id/textView18" />
 
     <TextView
@@ -245,6 +269,22 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Jenis Sedekah"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -258,7 +298,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <TextView
         android:id="@+id/textView23"
@@ -328,7 +368,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
     <ImageView
-        android:id="@+id/iv_back_infaq"
+        android:id="@+id/iv_back_sedekah"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
@@ -339,7 +379,7 @@
         app:srcCompat="@drawable/ic_back" />
 
     <Button
-        android:id="@+id/btn_delete_infaq"
+        android:id="@+id/btn_delete_sedekah"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -359,6 +399,6 @@
         android:layout_marginTop="32dp"
         android:text="Edit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView36" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_ket" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

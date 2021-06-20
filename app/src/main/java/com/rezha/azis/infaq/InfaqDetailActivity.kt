@@ -12,7 +12,17 @@ import com.rezha.azis.R
 import com.rezha.azis.model.Infaq
 import com.rezha.azis.model.Zakat
 import com.rezha.azis.zakat.FormZakatActivity
+import kotlinx.android.synthetic.main.activity_infaq_detail.*
 import kotlinx.android.synthetic.main.activity_zakat_detail.*
+import kotlinx.android.synthetic.main.activity_zakat_detail.btn_edit
+import kotlinx.android.synthetic.main.activity_zakat_detail.iv_back
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_alamat
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_beras
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_hubungan
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_ket
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_nama
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_tanggal
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_uang
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,7 +35,7 @@ class InfaqDetailActivity : AppCompatActivity() {
 
         tv_nama.text=data.nama
         tv_alamat.text=data.alamat
-        tv_hubungan.text=data.hubungan_keluarga
+//        tv_hubungan.text=data.hubungan_keluarga
         tv_tanggal.text=formatDate(data.tanggal.toString(),"dd MMMM yyyy")
         if(data.beras.equals("0")){
             tv_beras.text="-"
@@ -43,8 +53,8 @@ class InfaqDetailActivity : AppCompatActivity() {
             tv_ket.text=data.uang
         }
 
-        iv_back.setOnClickListener {
-            var intent= Intent(this@InfaqDetailActivity, HomeActivity::class.java).putExtra("toLoad","ZakatFragment")
+        iv_back_infaq.setOnClickListener {
+            var intent= Intent(this@InfaqDetailActivity, HomeActivity::class.java).putExtra("toLoad","InfaqFragment")
             startActivity(intent)
         }
 
@@ -54,7 +64,7 @@ class InfaqDetailActivity : AppCompatActivity() {
             finish()
         }
 
-        btn_delete_zakat.setOnClickListener{
+        btn_delete_infaq.setOnClickListener{
             hapusData()
         }
     }
@@ -65,11 +75,11 @@ class InfaqDetailActivity : AppCompatActivity() {
         alert.setTitle("Hapus Data")
         alert.setPositiveButton("Hapus", DialogInterface.OnClickListener{
             dialog, which ->
-            val dbInfaq= FirebaseDatabase.getInstance().getReference("Infaq").child(data.id.toString())
+            val dbInfaq= FirebaseDatabase.getInstance().getReference("Transaksi").child(data.id.toString())
             dbInfaq.removeValue()
             var intent=Intent(this@InfaqDetailActivity,HomeActivity::class.java).putExtra("toLoad","InfaqFragment")
             startActivity(intent)
-            finish()
+            finishAffinity()
             Toast.makeText(this,"Data telah dihapus", Toast.LENGTH_SHORT).show()
         })
         alert.setNegativeButton("Batal", DialogInterface.OnClickListener{

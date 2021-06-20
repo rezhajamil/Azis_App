@@ -56,21 +56,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <EditText
-                android:id="@+id/et_hubungan_keluarga"
-                android:layout_width="350dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:capitalize="words"
-                android:ems="10"
-                android:fontFamily="@font/montserrat"
-                android:inputType="textPersonName"
-                android:textColor="@color/sekunder"
-                android:textColorHint="@color/sekunder"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-            <EditText
                 android:id="@+id/et_uang"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
@@ -200,20 +185,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/et_nama" />
 
             <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/montserrat"
-                android:text="Hubungan Keluarga"
-                android:textColor="@color/premier"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_alamat" />
-
-            <TextView
                 android:id="@+id/tv_beras"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -225,7 +196,7 @@
                 android:textColor="@color/premier"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_hubungan_keluarga" />
+                app:layout_constraintTop_toBottomOf="@+id/et_alamat" />
 
             <TextView
                 android:id="@+id/textView14"

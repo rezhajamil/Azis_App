@@ -35,7 +35,7 @@ import java.util.*
 
 class FormSedekahActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener {
 
-    val refSedekah=FirebaseDatabase.getInstance().getReference("Sedekah")
+    val refSedekah=FirebaseDatabase.getInstance().getReference("Transaksi")
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +77,7 @@ class FormSedekahActivity : AppCompatActivity(),AdapterView.OnItemSelectedListen
         btn_simpan.setOnClickListener {
             val sNama=et_nama.text.toString().capitalize().trim()
             val sAlamat=et_alamat.text.toString().capitalize().trim()
-            val sHub=et_hubungan_keluarga.text.toString().capitalize().trim()
+//            val sHub=et_hubungan_keluarga.text.toString().capitalize().trim()
             val sJenis=spinner_jenis_sedekah.selectedItem.toString().trim()
             val sBeras=et_beras.text.toString().trim()
             val sUang=et_uang.text.toString().trim()
@@ -95,22 +95,22 @@ class FormSedekahActivity : AppCompatActivity(),AdapterView.OnItemSelectedListen
                 et_nama.error="Isi Nama"
                 et_nama.requestFocus()
             }
-            if(sAlamat.equals("")){
+            else if(sAlamat.equals("")){
                 et_alamat.error="Isi Alamat"
                 et_alamat.requestFocus()
             }
-            if(sHub.equals("")){
-                et_hubungan_keluarga.error="Isi Hubungan Keluarga"
-                et_hubungan_keluarga.requestFocus()
-            }
-            if(sUang.equals("") && sBeras.equals("")){
+//            else if(sHub.equals("")){
+//                et_hubungan_keluarga.error="Isi Hubungan Keluarga"
+//                et_hubungan_keluarga.requestFocus()
+//            }
+            else if(sUang.equals("") && sBeras.equals("")){
                 et_uang.error="Isi Jumlah Uang"
                 et_beras.error="Isi Jumlah Beras"
                 et_uang.requestFocus()
                 et_beras.requestFocus()
             }
             else {
-                saveData(sNama, sAlamat, sHub, sJenis, sBeras, sUang, sTanggal,sKet,sedekahID)
+                saveData(sNama, sAlamat, sJenis, sBeras, sUang, sTanggal,sKet,sedekahID)
             }
         }
 
@@ -119,7 +119,7 @@ class FormSedekahActivity : AppCompatActivity(),AdapterView.OnItemSelectedListen
     private fun editData(data: Sedekah) {
         et_nama.setText(data.nama)
         et_alamat.setText(data.alamat)
-        et_hubungan_keluarga.setText(data.hubungan_keluarga)
+//        et_hubungan_keluarga.setText(data.hubungan_keluarga)
         if(data.jenis=="Sedekah"){
             spinner_jenis_sedekah.setSelection(0)
         }else if(data.jenis=="Fidyah"){
@@ -131,7 +131,7 @@ class FormSedekahActivity : AppCompatActivity(),AdapterView.OnItemSelectedListen
         et_ket.setText(data.keterangan)
     }
 
-    private fun saveData(sNama: String, sAlamat: String, sHub: String, sJenis: String, sBeras: String, sUang: String, sTanggal: String, sKet: String, sedekahID: String?) {
+    private fun saveData(sNama: String, sAlamat: String, sJenis: String, sBeras: String, sUang: String, sTanggal: String, sKet: String, sedekahID: String?) {
         var sedekah= Sedekah()
 
         if(sBeras.equals("")){
@@ -146,7 +146,7 @@ class FormSedekahActivity : AppCompatActivity(),AdapterView.OnItemSelectedListen
         }
         sedekah.nama=sNama
         sedekah.alamat=sAlamat
-        sedekah.hubungan_keluarga=sHub
+//        sedekah.hubungan_keluarga=sHub
         sedekah.jenis=sJenis
         sedekah.tanggal=sTanggal
         sedekah.keterangan=sKet
@@ -163,7 +163,7 @@ class FormSedekahActivity : AppCompatActivity(),AdapterView.OnItemSelectedListen
 
         var intent=Intent(this@FormSedekahActivity,HomeActivity::class.java).putExtra("toLoad","SedekahFragment")
         startActivity(intent)
-        finish()
+        finishAffinity()
 
         Toast.makeText(this@FormSedekahActivity,"Berhasil Disimpan",Toast.LENGTH_SHORT).show()
     }

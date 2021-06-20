@@ -25,7 +25,7 @@ import java.util.*
 
 class FormInfaqActivity : AppCompatActivity() {
 
-    val refInfaq= FirebaseDatabase.getInstance().getReference("Infaq")
+    val refInfaq= FirebaseDatabase.getInstance().getReference("Transaksi")
     
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +57,7 @@ class FormInfaqActivity : AppCompatActivity() {
         btn_simpan.setOnClickListener {
             val sNama=et_nama.text.toString().capitalize().trim()
             val sAlamat=et_alamat.text.toString().capitalize().trim()
-            val sHub=et_hubungan_keluarga.text.toString().capitalize().trim()
+//            val sHub=et_hubungan_keluarga.text.toString().capitalize().trim()
             val sBeras=et_beras.text.toString().trim()
             val sUang=et_uang.text.toString().trim()
             val sTanggal=formatDate(et_tanggal.text.toString(),"yyyy-MM-dd")
@@ -74,22 +74,22 @@ class FormInfaqActivity : AppCompatActivity() {
                 et_nama.error="Isi Nama"
                 et_nama.requestFocus()
             }
-            if(sAlamat.equals("")){
+            else if(sAlamat.equals("")){
                 et_alamat.error="Isi Alamat"
                 et_alamat.requestFocus()
             }
-            if(sHub.equals("")){
-                et_hubungan_keluarga.error="Isi Hubungan Keluarga"
-                et_hubungan_keluarga.requestFocus()
-            }
-            if(sUang.equals("") && sBeras.equals("")){
+//            else if(sHub.equals("")){
+//                et_hubungan_keluarga.error="Isi Hubungan Keluarga"
+//                et_hubungan_keluarga.requestFocus()
+//            }
+            else if(sUang.equals("") && sBeras.equals("")){
                 et_uang.error="Isi Jumlah Uang"
                 et_beras.error="Isi Jumlah Beras"
                 et_uang.requestFocus()
                 et_beras.requestFocus()
             }
             else {
-                saveData(sNama, sAlamat, sHub, sBeras, sUang, sTanggal,sKet,infaqID)
+                saveData(sNama, sAlamat, sBeras, sUang, sTanggal,sKet,infaqID)
             }
         }
     }
@@ -97,14 +97,14 @@ class FormInfaqActivity : AppCompatActivity() {
     private fun editData(data: Infaq) {
         et_nama.setText(data.nama)
         et_alamat.setText(data.alamat)
-        et_hubungan_keluarga.setText(data.hubungan_keluarga)
+//        et_hubungan_keluarga.setText(data.hubungan_keluarga)
         et_beras.setText(data.beras)
         et_uang.setText(data.uang)
         et_tanggal.setText(formatDate2(data.tanggal.toString(),"dd MMMM yyyy"))
         et_ket.setText(data.keterangan)
     }
 
-    private fun saveData(sNama: String, sAlamat: String, sHub: String, sBeras: String, sUang: String, sTanggal: String, sKet: String, infaqID: String?) {
+    private fun saveData(sNama: String, sAlamat: String, sBeras: String, sUang: String, sTanggal: String, sKet: String, infaqID: String?) {
         var infaq= Infaq()
 
         if(sBeras.equals("")){
@@ -119,10 +119,11 @@ class FormInfaqActivity : AppCompatActivity() {
         }
         infaq.nama=sNama
         infaq.alamat=sAlamat
-        infaq.hubungan_keluarga=sHub
+//        infaq.hubungan_keluarga=sHub
         infaq.tanggal=sTanggal
         infaq.keterangan=sKet
         infaq.id=infaqID
+        infaq.jenis="Infaq"
 
         if(sNama!=null && infaqID!=null){
             simpanData(infaqID,infaq)
@@ -135,7 +136,7 @@ class FormInfaqActivity : AppCompatActivity() {
 
         var intent= Intent(this@FormInfaqActivity, HomeActivity::class.java).putExtra("toLoad","InfaqFragment")
         startActivity(intent)
-        finish()
+        finishAffinity()
 
         Toast.makeText(this@FormInfaqActivity,"Berhasil Disimpan", Toast.LENGTH_SHORT).show()
     }

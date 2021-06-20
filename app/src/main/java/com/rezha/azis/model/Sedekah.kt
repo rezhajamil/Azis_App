@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class Sedekah(
         var nama:String?="",
         var alamat:String?="",
-        var hubungan_keluarga:String?="",
+//        var hubungan_keluarga:String?="",
         var keterangan:String?="",
         var beras: String?="",
         var uang:String?="",

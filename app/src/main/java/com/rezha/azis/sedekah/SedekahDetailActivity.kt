@@ -11,7 +11,18 @@ import com.rezha.azis.HomeActivity
 import com.rezha.azis.R
 import com.rezha.azis.model.Sedekah
 import com.rezha.azis.model.Zakat
+import kotlinx.android.synthetic.main.activity_sedekah_detail.*
 import kotlinx.android.synthetic.main.activity_zakat_detail.*
+import kotlinx.android.synthetic.main.activity_zakat_detail.btn_edit
+import kotlinx.android.synthetic.main.activity_zakat_detail.iv_back
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_alamat
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_beras
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_hubungan
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_jenis
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_ket
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_nama
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_tanggal
+import kotlinx.android.synthetic.main.activity_zakat_detail.tv_uang
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,13 +31,13 @@ class SedekahDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_zakat_detail)
+        setContentView(R.layout.activity_sedekah_detail)
 
         val data=intent.getParcelableExtra<Sedekah>("data")
 
         tv_nama.text=data.nama
         tv_alamat.text=data.alamat
-        tv_hubungan.text=data.hubungan_keluarga
+//        tv_hubungan.text=data.hubungan_keluarga
         tv_jenis.text=data.jenis
         tv_tanggal.text=formatDate(data.tanggal.toString(),"dd MMMM yyyy")
         if(data.beras.equals("0")){
@@ -45,7 +56,7 @@ class SedekahDetailActivity : AppCompatActivity() {
             tv_ket.text=data.uang
         }
 
-        iv_back.setOnClickListener {
+        iv_back_sedekah.setOnClickListener {
             var intent=Intent(this@SedekahDetailActivity,HomeActivity::class.java).putExtra("toLoad","SedekahFragment")
             startActivity(intent)
         }
@@ -56,7 +67,7 @@ class SedekahDetailActivity : AppCompatActivity() {
             finish()
         }
 
-        btn_delete_zakat.setOnClickListener{
+        btn_delete_sedekah.setOnClickListener{
             hapusData()
         }
     }
@@ -67,11 +78,11 @@ class SedekahDetailActivity : AppCompatActivity() {
         alert.setTitle("Hapus Data")
         alert.setPositiveButton("Hapus",DialogInterface.OnClickListener{
             dialog, which ->
-            val dbSedekah=FirebaseDatabase.getInstance().getReference("Sedekah").child(data.id.toString())
+            val dbSedekah=FirebaseDatabase.getInstance().getReference("Transaksi").child(data.id.toString())
             dbSedekah.removeValue()
             var intent=Intent(this@SedekahDetailActivity,HomeActivity::class.java).putExtra("toLoad","SedekahFragment")
             startActivity(intent)
-            finish()
+            finishAffinity()
             Toast.makeText(this,"Data telah dihapus",Toast.LENGTH_SHORT).show()
         })
         alert.setNegativeButton("Batal",DialogInterface.OnClickListener{

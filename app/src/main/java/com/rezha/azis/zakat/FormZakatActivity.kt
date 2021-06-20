@@ -24,7 +24,7 @@ import java.util.*
 
 class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener {
 
-    val refZakat=FirebaseDatabase.getInstance().getReference("Zakat")
+    val refZakat=FirebaseDatabase.getInstance().getReference("Transaksi")
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,15 +84,15 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
                 et_nama.error="Isi Nama"
                 et_nama.requestFocus()
             }
-            if(sAlamat.equals("")){
+            else if(sAlamat.equals("")){
                 et_alamat.error="Isi Alamat"
                 et_alamat.requestFocus()
             }
-            if(sHub.equals("")){
+            else if(sHub.equals("")){
                 et_hubungan_keluarga.error="Isi Hubungan Keluarga"
                 et_hubungan_keluarga.requestFocus()
             }
-            if(sUang.equals("") && sBeras.equals("")){
+            else if(sUang.equals("") && sBeras.equals("")){
                 et_uang.error="Isi Jumlah Uang"
                 et_beras.error="Isi Jumlah Beras"
                 et_uang.requestFocus()
@@ -152,7 +152,7 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
 
         var intent=Intent(this@FormZakatActivity,HomeActivity::class.java).putExtra("toLoad","ZakatFragment")
         startActivity(intent)
-        finish()
+        finishAffinity()
 
         Toast.makeText(this@FormZakatActivity,"Berhasil Disimpan",Toast.LENGTH_SHORT).show()
     }

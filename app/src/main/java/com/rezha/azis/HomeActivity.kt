@@ -61,8 +61,6 @@ class HomeActivity : AppCompatActivity() {
                 menuSedekah(fragmentSedekah)
             }
         }
-
-
     }
 
     private fun formatDate(date:String,format: String):String{
