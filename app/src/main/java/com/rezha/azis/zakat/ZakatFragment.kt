@@ -1,6 +1,7 @@
 package com.rezha.azis.zakat
 
 import android.app.Activity.RESULT_OK
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -9,9 +10,10 @@ import android.os.Handler
 import android.provider.DocumentsContract
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,10 +26,14 @@ import com.itextpdf.layout.borders.Border
 import com.itextpdf.layout.element.*
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
+import com.rezha.azis.HomeActivity
+import com.rezha.azis.MenuActivity
 import com.rezha.azis.R
+import com.rezha.azis.model.KK
 import com.rezha.azis.model.Zakat
 import com.rezha.azis.utils.Preferences
 import kotlinx.android.synthetic.main.fragment_zakat.*
+import kotlinx.android.synthetic.main.print_dialog2.*
 import java.io.File
 import java.io.FileOutputStream
 import java.text.ParseException
@@ -38,9 +44,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ZakatFragment : Fragment() {
+class ZakatFragment : Fragment(){
 
     private var dataList = ArrayList<Zakat>()
+    lateinit var preferences: Preferences
     var handler = Handler()
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -53,16 +60,19 @@ class ZakatFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        preferences= Preferences(context!!)
         btn_add_zakat.setOnClickListener {
             var intent = Intent(activity, FormZakatActivity::class.java)
             startActivity(intent)
+            activity?.finish()
         }
 
 
         val today = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
         val formatted = today.plusDays(1).format(formatter)
-        val formattedMonth = today.withDayOfMonth(1).format(formatter)
+        val formattedMonth = today.withDayOfMonth(1).minusDays(1).format(formatter)
         tv_tgl_start.setText(formattedMonth)
         tv_tgl_end.setText(formatted)
 
@@ -116,180 +126,36 @@ class ZakatFragment : Fragment() {
         rv_zakat.layoutManager = LinearLayoutManager(context)
         getData()
 
-        iv_share_zakat.setOnClickListener {
-            printPdf()
+        iv_back_menu3.setOnClickListener {
+            startActivity(Intent(context, MenuActivity::class.java))
+            activity?.finish()
         }
     }
-
-
-//    @RequiresApi(Build.VERSION_CODES.KITKAT)
-//    private fun printCsv() {
-//        var hssfWorkbook = HSSFWorkbook()
-//        var hssfSheet = hssfWorkbook.createSheet()
-//        var hssfRow = hssfSheet.createRow(0)
-//        var hssfCell = hssfRow.createCell(0)
-//
-//        hssfCell.setCellValue("Hello")
-//        var filePath = File(context?.getExternalFilesDir(null)?.absolutePath + "/Zakat.xls")
-//        Log.v("taggy", "" + filePath)
-//
-//        try {
-//            if (!filePath.exists()) {
-//                filePath.createNewFile()
-//            }
-//
-//            var fileOutputStream = FileOutputStream(filePath)
-//            hssfWorkbook.write(fileOutputStream)
-//
-//            if (fileOutputStream != null) {
-//                fileOutputStream.flush()
-//                fileOutputStream.close()
-//                Toast.makeText(context, "File telah tersimpan", Toast.LENGTH_LONG).show()
-//                var uri = Uri.parse(context?.getExternalFilesDir(null)?.absolutePath)
-//                Log.v("taggy", "" + uri)
-//                var intent = Intent(Intent.ACTION_GET_CONTENT)
-//                intent.setDataAndType(uri, "file/*")
-//                startActivity(intent)
-//            }
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-//    }
-
-   @RequiresApi(Build.VERSION_CODES.KITKAT)
-    private fun printPdf() {
-       var tglMulai = formatDate(tv_tgl_start.text.toString(), "yyyy-MM-dd")
-       var tglAkhir = formatDate(tv_tgl_end.text.toString(), "yyyy-MM-dd")
-
-       var intent=Intent(Intent.ACTION_CREATE_DOCUMENT)
-               .addCategory(Intent.CATEGORY_OPENABLE)
-               .setType("text/pdf")
-               .putExtra(Intent.EXTRA_TITLE,"Zakat ("+tglMulai+"~"+tglAkhir+").pdf")
-
-       startActivityForResult(intent,1)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode==1){
-            if (resultCode==RESULT_OK){
-                var tglMulai = formatDate(tv_tgl_start.text.toString(), "yyyy-MM-dd")
-                var tglAkhir = formatDate(tv_tgl_end.text.toString(), "yyyy-MM-dd")
-                var mDatabaseQuery = FirebaseDatabase.getInstance().getReference("Transaksi").orderByChild("tanggal").startAt(tglMulai).endAt(tglAkhir)
-
-                mDatabaseQuery.addValueEventListener(object : ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        dataList.clear()
-                        var no=1
-
-                        var pdfPath = data?.data
-                        var outputStream = pdfPath?.let { context?.contentResolver?.openOutputStream(it) }
-
-                        var writer = PdfWriter(outputStream)
-                        var pdfDocument = com.itextpdf.kernel.pdf.PdfDocument(writer)
-                        var document = Document(pdfDocument)
-
-                        var textCenter=TextAlignment.CENTER
-                        var textLeft=TextAlignment.LEFT
-                        var textMiddle=VerticalAlignment.MIDDLE
-                        var bgLGray=ColorConstants.CYAN
-                        var noBorder=Border.NO_BORDER
-
-                        var columnwidth= floatArrayOf(200f,200f,200f,200f,200f,200f,200f)
-                        var table = Table(columnwidth)
-
-                        table.addCell(Cell(1,5).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBorderBottom(noBorder).add(Paragraph("BKM ISTIQOMAH").setBold()))
-                        table.addCell(Cell(2,2).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph("BUKTI ZAKAT").setBold()))
-                        table.addCell(Cell(1,5).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBorderTop(noBorder).setBorderBottom(noBorder).add(Paragraph("KOMPLEKS TAMAN SAKURA INDAH").setBold()))
-                        table.addCell(Cell(1,5).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBorderTop(noBorder).add(Paragraph("PANITIA ZAKAT").setBold()))
-                        table.addCell(Cell(1,1).setTextAlignment(textCenter).setBackgroundColor(bgLGray).add(Paragraph("No.").setBold()))
-                        table.addCell(Cell(1,1).add(Paragraph("")))
-
-                        table.addCell(Cell(1,7).setBorderBottom(noBorder).add(Paragraph("Sudah diterima dari")))
-                        table.addCell(Cell(1,7).setBorderTop(noBorder).setBorderBottom(noBorder).add(Paragraph("Nama :")))
-                        table.addCell(Cell(1,7).setBorderTop(noBorder).add(Paragraph("Alamat :")))
-
-                        table.addCell(Cell(2,1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBackgroundColor(bgLGray).add(Paragraph("NO.").setBold()))
-                        table.addCell(Cell(2,2).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBackgroundColor(bgLGray).add(Paragraph("NAMA").setBold()))
-                        table.addCell(Cell(2,1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBackgroundColor(bgLGray).add(Paragraph("HUBUNGAN KELUARGA").setBold()))
-                        table.addCell(Cell(1,2).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBackgroundColor(bgLGray).add(Paragraph("ZAKAT FITRAH").setBold()))
-                        table.addCell(Cell(2,1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBackgroundColor(bgLGray).add(Paragraph("ZAKAT HARTA (RP)").setBold()))
-                        table.addCell(Cell(1,1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBackgroundColor(bgLGray).add(Paragraph("BERAS (KG)").setBold()))
-                        table.addCell(Cell(1,1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBackgroundColor(bgLGray).add(Paragraph("UANG (RP)").setBold()))
-
-                        var tBZF=0
-                        var tUZF=0
-                        var tUZH=0
-                        for (getdataSnapshot in snapshot.children) {
-                            var data=getdataSnapshot.getValue(Zakat::class.java)
-                            if (data?.jenis.toString().substring(0..4)=="Zakat") {
-                                table.addCell(Cell(1, 1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(no.toString()).setBold()))
-                                table.addCell(Cell(1, 2).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(data?.nama.toString()).setBold()))
-                                table.addCell(Cell(1, 1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(data?.hubungan_keluarga.toString()).setBold()))
-                                if (data?.jenis == "Zakat Fitrah") {
-                                    tBZF+=data?.beras.toString().toInt()
-                                    tUZF+=data?.uang.toString().toInt()
-
-                                    table.addCell(Cell(1, 1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(data?.beras.toString()).setBold()))
-                                    table.addCell(Cell(1, 1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(data?.uang.toString()).setBold()))
-                                    table.addCell(Cell(1, 1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph("-")))
-                                } else if (data?.jenis == "Zakat Harta") {
-                                    tUZH+=data?.uang.toString().toInt()
-
-                                    table.addCell(Cell(1, 1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph("-")))
-                                    table.addCell(Cell(1, 1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph("-")))
-                                    table.addCell(Cell(1, 1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(data?.uang.toString()).setBold()))
-                                }
-                                no++
-                            }
-                        }
-                        table.addCell(Cell(1,4).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).setBackgroundColor(bgLGray).add(Paragraph("JUMLAH").setBold()))
-                        table.addCell(Cell(1,1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(tBZF.toString()).setBold()))
-                        table.addCell(Cell(1,1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(tUZF.toString()).setBold()))
-                        table.addCell(Cell(1,1).setTextAlignment(textCenter).setVerticalAlignment(textMiddle).add(Paragraph(tUZH.toString()).setBold()))
-
-                        table.addCell(Cell(1,3).setTextAlignment(textLeft).setBorder(noBorder).add(Paragraph("\nDiterima Oleh\nPetugas Penerima\n\n\n\n\n\n")))
-                        table.addCell(Cell(1,1).setBorder(noBorder).add(Paragraph("")))
-                        table.addCell(Cell(1,3).setTextAlignment(textLeft).setBorder(noBorder).add(Paragraph("\nDibayarkan Tanggal\noleh\n\n\n\n\n\n")))
-                        table.addCell(Cell(1,3).setTextAlignment(textLeft).setBorder(noBorder).add(Paragraph("_________________________")))
-                        table.addCell(Cell(1,1).setBorder(noBorder).add(Paragraph("")))
-                        table.addCell(Cell(1,3).setTextAlignment(textLeft).setBorder(noBorder).add(Paragraph("_________________________")))
-                        document.add(table)
-                        document.close()
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(context, "" + error.message, Toast.LENGTH_LONG).show()
-                    }
-                })
-                Toast.makeText(context, "Pdf Created", Toast.LENGTH_LONG).show()
-            }
-        }
-        getData()
-    }
-
 
     private fun getData() {
         var tglMulai = formatDate(tv_tgl_start.text.toString(), "yyyy-MM-dd")
         var tglAkhir = formatDate(tv_tgl_end.text.toString(), "yyyy-MM-dd")
-        Log.v("tgl",""+tglMulai+tglAkhir)
-        var preferences = Preferences(activity!!.applicationContext)
-        var mDatabaseQuery = FirebaseDatabase.getInstance().getReference("Transaksi").orderByChild("tanggal").startAfter(tglMulai).endBefore(tglAkhir)
+        Log.v("tgl", "" + tglMulai + tglAkhir)
+//        var preferences = Preferences(activity!!.applicationContext)
+        var mDatabaseQuery = FirebaseDatabase.getInstance().getReference("Zakat").child(preferences.getValues("mesjid").toString()).orderByChild("tanggal").startAfter(tglMulai).endBefore(tglAkhir)
         mDatabaseQuery.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataList.clear()
                 for (getdataSnapshot in snapshot.children) {
                     var zakat = getdataSnapshot.getValue(Zakat::class.java)
-                    Log.v("isi",""+zakat?.jenis.toString().substring(0..4))
-                    if(zakat?.jenis.toString().substring(0..4)=="Zakat"){
-                        dataList.add(zakat!!)
-                    }
+                    dataList.add(zakat!!)
                 }
 
-                rv_zakat.adapter = ZakatAdapter(dataList) {
-                    var intent = Intent(context, ZakatDetailActivity::class.java).putExtra("data", it)
-                    startActivity(intent)
+                if (rv_zakat!=null){
+                    rv_zakat.adapter = ZakatAdapter(dataList) {
+                        var intent = Intent(context, ZakatDetailActivity::class.java).putExtra("data", it)
+                        startActivity(intent)
+                        activity?.finish()
+                    }
+                }
+                else{
+                    activity?.finish()
+                    startActivity(Intent(activity?.applicationContext,HomeActivity::class.java).putExtra("toLoad","ZakatFragment"))
                 }
 
                 shimmerZakat.stopShimmer()
@@ -317,6 +183,9 @@ class ZakatFragment : Fragment() {
         }
         return formattedDate
     }
+
 }
+
+
 
 

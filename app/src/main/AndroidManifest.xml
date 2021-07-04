@@ -13,26 +13,32 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
 
     <application
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/logo_azis"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/logo_azis"
         android:supportsRtl="true"
         android:theme="@style/Theme.AZIS.noActionBar">
-        <activity android:name=".infaq.InfaqDetailActivity" />
+        <activity android:name=".sign.GantiPasswordActivity"></activity>
+        <activity android:name=".sign.EditDataActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".sign.SignUpActivity" />
+        <activity android:name=".sign.SignInActivity" />
+        <activity android:name=".kepala_keluarga.FormAnggotaActivity" />
+        <activity android:name=".kepala_keluarga.KKDetailActivity" />
         <activity android:name=".zakat.ZakatDetailActivity" />
-        <activity android:name=".sedekah.SedekahDetailActivity" />
-        <activity android:name=".sedekah.FormSedekahActivity" />
-        <activity android:name=".infaq.FormInfaqActivity" />
+        <activity android:name=".panitia.PanitiaDetailActivity" />
+        <activity android:name=".panitia.FormPanitiaActivity" />
+        <activity android:name=".kepala_keluarga.FormKKActivity" />
         <activity android:name=".zakat.FormZakatActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".HomeActivity" />

@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ZakatAdapter(private var data: ArrayList<Zakat>,
+class ZakatAdapter(private var zakat: ArrayList<Zakat>,
                    private val listener:(Zakat) -> Unit) : RecyclerView.Adapter<ZakatAdapter.ViewHolder>() {
 
     lateinit var contextAdapter:Context
@@ -26,35 +26,30 @@ class ZakatAdapter(private var data: ArrayList<Zakat>,
     }
 
     override fun onBindViewHolder(holder: ZakatAdapter.ViewHolder, position: Int) {
-        holder.bindItem(data[position],listener,contextAdapter)
+        holder.bindItem(zakat[position],listener,contextAdapter)
     }
 
-    override fun getItemCount(): Int =data.size
+    override fun getItemCount(): Int =zakat.size
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
-        private val tvJenis=view.findViewById<TextView>(R.id.tv_jenis)
         private val tvNama=view.findViewById<TextView>(R.id.tv_nama)
         private val tvTanggal=view.findViewById<TextView>(R.id.tv_tanggal)
-        private val tvBeras=view.findViewById<TextView>(R.id.tv_beras)
+        private val tvAnggota=view.findViewById<TextView>(R.id.tv_anggota)
         private val tvUang=view.findViewById<TextView>(R.id.tv_uang)
 
-        fun bindItem(data: Zakat, listener: (Zakat) -> Unit,context: Context){
-            tvJenis.setText("("+data.jenis+")")
-            tvNama.setText(data.nama)
-            tvTanggal.setText(formatDate(data.tanggal.toString(),"dd MMMM yyyy"))
-            if(data.beras.equals("0")){
-                tvBeras.setText("-")
-            }else{
-                tvBeras.setText(data.beras + " Kg")
+        fun bindItem(zakat: Zakat, listener: (Zakat) -> Unit, contextAdapter: Context){
+            if (zakat.jenis=="Beras"){
+                tvUang.setText(zakat.beras+" Kg")
             }
-            if(data.uang.equals("0")){
-                tvUang.setText("-")
-            }else{
-                tvUang.setText("Rp. "+data.uang)
+            else{
+                tvUang.setText("Rp."+zakat.uang)
             }
+            tvNama.setText(zakat.nama)
+            tvTanggal.setText(formatDate(zakat.tanggal.toString(),"dd MMMM yyyy"))
+            tvAnggota.setText(zakat.anggota+" Orang")
 
             itemView.setOnClickListener {
-                listener(data)
+                listener(zakat)
             }
         }
 

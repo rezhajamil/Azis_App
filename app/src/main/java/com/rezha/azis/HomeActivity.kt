@@ -1,32 +1,20 @@
 package com.rezha.azis
 
 import android.content.Intent
-import android.graphics.Insets.add
 import android.os.Build
-import android.os.Build.ID
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.PersistableBundle
 import android.view.Menu
-import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
-import androidx.core.view.OneShotPreDrawListener.add
 import androidx.fragment.app.Fragment
-import com.google.android.material.datepicker.MaterialDatePicker
-import com.rezha.azis.infaq.InfaqFragment
-import com.rezha.azis.sedekah.SedekahFragment
+import com.rezha.azis.kepala_keluarga.KKFragment
+import com.rezha.azis.panitia.PanitiaFragment
 import com.rezha.azis.zakat.ZakatFragment
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.android.synthetic.main.fragment_zakat.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -36,17 +24,17 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         val fragmentZakat= ZakatFragment()
-        val fragmentInfaq= InfaqFragment()
-        val fragmentSedekah= SedekahFragment()
+        val fragmentKK= KKFragment()
+        val fragmentSedekah= PanitiaFragment()
         var intentFragment= intent.getStringExtra("toLoad")
 
         ic_zakat.setOnClickListener{
             menuZakat(fragmentZakat)
         }
-        ic_infaq.setOnClickListener{
-            menuInfaq(fragmentInfaq)
+        ic_kk.setOnClickListener{
+            menuInfaq(fragmentKK)
         }
-        ic_sedekah.setOnClickListener{
+        ic_panitia.setOnClickListener{
             menuSedekah(fragmentSedekah)
         }
 
@@ -54,10 +42,10 @@ class HomeActivity : AppCompatActivity() {
             "ZakatFragment"->{
                 menuZakat(fragmentZakat)
             }
-            "InfaqFragment"->{
-                menuInfaq(fragmentInfaq)
+            "KKFragment"->{
+                menuInfaq(fragmentKK)
             }
-            "SedekahFragment"->{
+            "PanitiaFragment"->{
                 menuSedekah(fragmentSedekah)
             }
         }
@@ -94,29 +82,34 @@ class HomeActivity : AppCompatActivity() {
         setFragment(fragmentZakat)
         changeIcon(ic_zakat,R.drawable.ic_zakat_active)
         changeBg(ic_zakat,R.color.premier)
-        changeIcon(ic_infaq,R.drawable.ic_infaq)
-        changeBg(ic_infaq,R.color.white)
-        changeIcon(ic_sedekah,R.drawable.ic_sedekah)
-        changeBg(ic_sedekah,R.color.white)
+        changeIcon(ic_kk,R.drawable.ic_kk)
+        changeBg(ic_kk,R.color.white)
+        changeIcon(ic_panitia,R.drawable.ic_sedekah)
+        changeBg(ic_panitia,R.color.white)
     }
 
-    private fun menuInfaq(fragmentInfaq:Fragment){
-        setFragment(fragmentInfaq)
+    private fun menuInfaq(fragmentKK:Fragment){
+        setFragment(fragmentKK)
         changeIcon(ic_zakat,R.drawable.ic_zakat)
         changeBg(ic_zakat,R.color.white)
-        changeIcon(ic_infaq,R.drawable.ic_infaq_active)
-        changeBg(ic_infaq,R.color.premier)
-        changeIcon(ic_sedekah,R.drawable.ic_sedekah)
-        changeBg(ic_sedekah,R.color.white)
+        changeIcon(ic_kk,R.drawable.ic_kk_active)
+        changeBg(ic_kk,R.color.premier)
+        changeIcon(ic_panitia,R.drawable.ic_sedekah)
+        changeBg(ic_panitia,R.color.white)
     }
 
-    private fun menuSedekah(fragmentSedekah:Fragment){
-        setFragment(fragmentSedekah)
+    private fun menuSedekah(fragmentPanitia:Fragment){
+        setFragment(fragmentPanitia)
         changeIcon(ic_zakat,R.drawable.ic_zakat)
         changeBg(ic_zakat,R.color.white)
-        changeIcon(ic_infaq,R.drawable.ic_infaq)
-        changeBg(ic_infaq,R.color.white)
-        changeIcon(ic_sedekah,R.drawable.ic_sedekah_active)
-        changeBg(ic_sedekah,R.color.premier)
+        changeIcon(ic_kk,R.drawable.ic_kk)
+        changeBg(ic_kk,R.color.white)
+        changeIcon(ic_panitia,R.drawable.ic_sedekah_active)
+        changeBg(ic_panitia,R.color.premier)
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this@HomeActivity,MenuActivity::class.java))
+        finish()
     }
 }

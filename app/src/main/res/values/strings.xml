@@ -3,12 +3,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string-array name="jenis_zakat">
-        <item>Zakat Fitrah</item>
-        <item>Zakat Harta</item>
+    <string-array name="jenis_zakat_fitrah">
+        <item>Beras</item>
+        <item>Uang</item>
     </string-array>
-    <string-array name="jenis_sedekah">
+    <string-array name="keterangan">
+        <item>Infaq</item>
         <item>Sedekah</item>
-        <item>Fidyah</item>
+    </string-array>
+    <string-array name="status">
+        <item>Kepala Keluarga</item>
+        <item>Anggota</item>
     </string-array>
 </resources>

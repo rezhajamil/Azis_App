@@ -40,47 +40,63 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/form_background">
 
-            <EditText
-                android:id="@+id/et_nama"
-                android:layout_width="350dp"
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spinner_kk_zakat"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
-                android:capitalize="words"
-                android:ems="10"
-                android:fontFamily="@font/montserrat"
-                android:inputType="textPersonName"
-                android:textColor="@color/sekunder"
-                android:textColorHint="@color/sekunder"
+                android:layout_marginTop="8dp"
+                android:focusable="true"
+                app:hintText="Pilih Kepala Keluarga"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                app:layout_constraintTop_toBottomOf="@+id/textView90" />
 
-            <EditText
-                android:id="@+id/et_hubungan_keluarga"
-                android:layout_width="350dp"
-                android:layout_height="0dp"
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spinner_panitia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
-                android:capitalize="words"
-                android:ems="10"
-                android:fontFamily="@font/montserrat"
-                android:inputType="textPersonName"
-                android:textColor="@color/sekunder"
-                android:textColorHint="@color/sekunder"
+                android:layout_marginTop="8dp"
+                android:focusable="true"
+                app:hintText="Pilih Panitia Zakat"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                app:layout_constraintTop_toBottomOf="@+id/textView45" />
 
             <Spinner
                 android:id="@+id/spinner_jenis_zakat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:entries="@array/jenis_zakat_fitrah"
+                android:spinnerMode="dialog"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spinner_harga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:spinnerMode="dropdown"
+                app:hintText="Pilih Harga Beras"
+                app:layout_constraintStart_toStartOf="@+id/textView111"
+                app:layout_constraintTop_toBottomOf="@+id/textView111" />
+
+            <Spinner
+                android:id="@+id/spinner_ket"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="8dp"
-                android:entries="@array/jenis_zakat"
+                android:entries="@array/keterangan"
                 android:spinnerMode="dialog"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -90,11 +106,11 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Jenis Zakat"
+                android:text="Jenis Zakat Fitrah"
                 android:textColor="@color/premier"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_hubungan_keluarga" />
+                app:layout_constraintTop_toBottomOf="@+id/spinner_kk_zakat" />
 
             <EditText
                 android:id="@+id/et_beras"
@@ -105,7 +121,7 @@
                 android:editable="false"
                 android:ems="10"
                 android:fontFamily="@font/montserrat"
-                android:inputType="number"
+                android:inputType="number|numberDecimal"
                 android:textColor="@color/sekunder"
                 android:textColorHint="@color/sekunder"
                 android:visibility="visible"
@@ -114,7 +130,7 @@
 
             <EditText
                 android:id="@+id/et_uang"
-                android:layout_width="175dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
@@ -125,6 +141,32 @@
                 android:textColorHint="@color/sekunder"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+            <EditText
+                android:id="@+id/et_zakat_harta"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:inputType="number"
+                android:textColor="@color/sekunder"
+                android:textColorHint="@color/sekunder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+            <EditText
+                android:id="@+id/et_fidyah2"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/montserrat"
+                android:inputType="number"
+                android:textColor="@color/sekunder"
+                android:textColorHint="@color/sekunder"
+                app:layout_constraintStart_toStartOf="@+id/textView42"
+                app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
             <EditText
                 android:id="@+id/et_tanggal"
@@ -141,37 +183,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-            <EditText
-                android:id="@+id/et_alamat"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:capitalize="words"
-                android:ems="10"
-                android:fontFamily="@font/montserrat"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:textColor="@color/sekunder"
-                android:textColorHint="@color/sekunder"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-            <EditText
-                android:id="@+id/et_ket"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:capitalize="sentences"
-                android:ems="10"
-                android:fontFamily="@font/montserrat"
-                android:inputType="textPersonName"
-                android:textColor="@color/sekunder"
-                android:textColorHint="@color/sekunder"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
             <Button
                 android:id="@+id/btn_simpan"
                 android:layout_width="250dp"
@@ -183,49 +194,35 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_ket" />
+                app:layout_constraintTop_toBottomOf="@+id/spinner_ket" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textView90"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Nama Kepala Keluarga"
+                android:textColor="@color/premier"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_panitia" />
+
+            <TextView
+                android:id="@+id/textView45"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/montserrat"
-                android:text="Nama"
+                android:text="Panitia Zakat"
                 android:textColor="@color/premier"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/montserrat"
-                android:text="Alamat"
-                android:textColor="@color/premier"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_nama" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/montserrat"
-                android:text="Hubungan Keluarga"
-                android:textColor="@color/premier"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_alamat" />
 
             <TextView
                 android:id="@+id/tv_beras"
@@ -267,7 +264,47 @@
                 android:textColor="@color/premier"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_uang" />
+                app:layout_constraintTop_toBottomOf="@+id/et_fidyah2" />
+
+            <TextView
+                android:id="@+id/textView111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Harga Beras per Kg"
+                android:textColor="@color/premier"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/et_uang"
+                app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Zakat Harta (Rp)"
+                android:textColor="@color/premier"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_harga" />
+
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Fidyah (Rp)"
+                android:textColor="@color/premier"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/et_zakat_harta"
+                app:layout_constraintTop_toTopOf="@+id/textView41" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -284,5 +321,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/et_tanggal" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ImageView
+        android:id="@+id/iv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:srcCompat="@drawable/ic_info_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

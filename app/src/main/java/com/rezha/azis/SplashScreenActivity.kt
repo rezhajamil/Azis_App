@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.rezha.azis.sign.SignInActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,7 +13,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         var handler=Handler()
         handler.postDelayed({
-            var intent=Intent(this@SplashScreenActivity, MenuActivity::class.java)
+            var intent=Intent(this@SplashScreenActivity, SignInActivity::class.java)
             startActivity(intent)
             finish()
         },3000)

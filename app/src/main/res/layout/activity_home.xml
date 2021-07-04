@@ -31,24 +31,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             app:srcCompat="@drawable/ic_zakat" />
 
         <ImageView
-            android:id="@+id/ic_infaq"
+            android:id="@+id/ic_kk"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            app:srcCompat="@drawable/ic_infaq" />
+            app:srcCompat="@drawable/ic_kk" />
 
         <ImageView
-            android:id="@+id/ic_sedekah"
+            android:id="@+id/ic_panitia"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
             app:srcCompat="@drawable/ic_sedekah" />
     </LinearLayout>
 

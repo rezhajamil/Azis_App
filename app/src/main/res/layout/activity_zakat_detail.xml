@@ -30,6 +30,28 @@
         app:layout_constraintTop_toTopOf="@+id/textView22" />
 
     <TextView
+        android:id="@+id/textView51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text=":"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView31"
+        app:layout_constraintTop_toTopOf="@+id/textView50" />
+
+    <TextView
+        android:id="@+id/textView53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text=":"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView31"
+        app:layout_constraintTop_toBottomOf="@+id/textView50" />
+
+    <TextView
         android:id="@+id/textView34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,6 +64,17 @@
 
     <TextView
         android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text=":"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textView34"
+        app:layout_constraintTop_toTopOf="@+id/textView43" />
+
+    <TextView
+        android:id="@+id/textView44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
@@ -145,7 +178,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView17" />
 
     <TextView
-        android:id="@+id/tv_alamat"
+        android:id="@+id/tv_alamat_zakat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -161,13 +194,26 @@
         app:layout_constraintTop_toTopOf="@+id/textView18" />
 
     <TextView
-        android:id="@+id/tv_hubungan"
+        android:id="@+id/tv_panitia_zakat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:fontFamily="@font/montserrat"
-        android:text="Anak"
+        android:text="Bambang"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView47"
+        app:layout_constraintTop_toTopOf="@+id/textView46" />
+
+    <TextView
+        android:id="@+id/tv_anggota_zakat2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="10 Orang"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView27"
@@ -216,6 +262,19 @@
         app:layout_constraintTop_toTopOf="@+id/textView24" />
 
     <TextView
+        android:id="@+id/tv_harga_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Rp.10000"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView35"
+        app:layout_constraintTop_toTopOf="@+id/textView43" />
+
+    <TextView
         android:id="@+id/tv_tanggal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -229,13 +288,39 @@
         app:layout_constraintTop_toTopOf="@+id/textView22" />
 
     <TextView
-        android:id="@+id/tv_jenis"
+        android:id="@+id/tv_zakat_harta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:fontFamily="@font/montserrat"
-        android:text="Zakat Fitrah"
+        android:text="Rp.10000"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
+        app:layout_constraintTop_toTopOf="@+id/textView50" />
+
+    <TextView
+        android:id="@+id/tv_fidyah_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Rp.10000"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView31"
+        app:layout_constraintTop_toTopOf="@+id/textView52" />
+
+    <TextView
+        android:id="@+id/tv_mesjid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Beras"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView31"
@@ -251,8 +336,21 @@
         android:text=":"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView47"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text=":"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textView46" />
 
     <TextView
         android:id="@+id/textView28"
@@ -300,13 +398,13 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/montserrat"
-        android:text="Hubungan Keluarga"
+        android:text="Jumlah Anggota"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_alamat" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_alamat_zakat" />
 
     <TextView
         android:id="@+id/textView21"
@@ -316,11 +414,25 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/montserrat"
-        android:text="Jenis Zakat"
+        android:text="Jenis Zakat Fitrah"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Panitia Zakat"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -335,10 +447,36 @@
         android:text="Tanggal"
         android:textColor="@color/sekunder"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        app:layout_constraintTop_toBottomOf="@+id/textView52" />
+
+    <TextView
+        android:id="@+id/textView50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Zakat Harta"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView43" />
+
+    <TextView
+        android:id="@+id/textView52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Fidyah"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView50" />
 
     <TextView
         android:id="@+id/textView23"
@@ -354,7 +492,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <TextView
         android:id="@+id/textView24"
@@ -373,6 +511,22 @@
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <TextView
+        android:id="@+id/textView43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Harga Beras"
+        android:textColor="@color/sekunder"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+    <TextView
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -386,7 +540,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
     <View
         android:id="@+id/divider"
@@ -440,5 +594,20 @@
         android:text="Edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_ket" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_print_zakat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        app:backgroundTint="@color/quartener"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="36dp"
+        app:srcCompat="@drawable/ic_baseline_print_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
