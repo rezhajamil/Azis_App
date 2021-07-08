@@ -23,6 +23,7 @@ import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.VerticalAlignment
+import com.rezha.azis.HomeActivity
 import com.rezha.azis.MenuActivity
 import com.rezha.azis.R
 import com.rezha.azis.model.Panitia
@@ -117,7 +118,8 @@ class PanitiaFragment : Fragment() {
                     }
                 }
                 else{
-                    getData()
+                    activity?.finish()
+                    startActivity(Intent(activity?.applicationContext, HomeActivity::class.java).putExtra("toLoad","PanitiaFragment"))
                 }
 
 

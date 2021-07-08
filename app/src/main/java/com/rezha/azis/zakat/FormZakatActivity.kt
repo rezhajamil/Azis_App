@@ -43,6 +43,7 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
     private var datalistPanitia= arrayListOf<String>()
     private var datalistKK= arrayListOf<String>()
     private var datalistHarga= arrayListOf<String>()
+    private var datalistFidyah= arrayListOf<Panitia>()
     var dataAlamat=""
     var dataAnggota=""
 
@@ -96,6 +97,7 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
                     var nama= panitia?.nama
 //                    Collections.addAll(datalistHarga,harga)
                     datalistPanitia.add(nama!!)
+                    datalistFidyah.add(panitia!!)
                 }
             }
 
@@ -159,6 +161,7 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
             else{
                 zakatID=refZakat.push().key.toString()
             }
+
             if (sJenis=="Beras"){
                 sHarga="0"
                 sUang="0"
@@ -169,9 +172,6 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
             if (sZHarta==""){
                 sZHarta="0"
             }
-            if (sFidyah==""){
-                sFidyah="0"
-            }
 
             if(sUang.equals("") && sBeras.equals("")){
                 et_uang.error="Isi Jumlah Uang"
@@ -179,8 +179,24 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
                 et_uang.requestFocus()
                 et_beras.requestFocus()
             }
-            else {
+            else if (sFidyah==""){
+                sFidyah="0"
                 saveData(sPanitia,sNama,sAlamat,sAnggota, sJenis, sHarga, sBeras, sUang,sZHarta,sFidyah, sTanggal,sKet,zakatID)
+            }
+            else if (sFidyah!=""){
+                var dt=0
+                for(d in datalistFidyah){
+                    if (d?.nama==sPanitia){
+                        dt= d?.fidyah?.toInt()!!
+                    }
+                }
+                if (sFidyah.toInt()<dt){
+                    et_fidyah2.error="Minimal Fidyah sebesar Rp."+dt.toString()
+                    et_fidyah2.requestFocus()
+                }
+                else {
+                    saveData(sPanitia,sNama,sAlamat,sAnggota, sJenis, sHarga, sBeras, sUang,sZHarta,sFidyah, sTanggal,sKet,zakatID)
+                }
             }
         }
 
@@ -309,6 +325,12 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
 
                 spinner_ket.setSelection(0)
                 spinner_ket.isClickable=true
+                if (spinner_harga.selectedItem==null){
+                    btn_simpan.visibility=View.INVISIBLE
+                }
+                else{
+                    btn_simpan.visibility=View.VISIBLE
+                }
             }else{
                 tv_beras.visibility=View.VISIBLE
                 et_beras.visibility=View.VISIBLE
@@ -320,6 +342,7 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
 
                 spinner_ket.setSelection(1)
                 spinner_ket.isClickable=false
+//                btn_simpan.visibility=View.VISIBLE
             }
         }
         else if (parent?.id==R.id.spinner_panitia){
@@ -344,22 +367,39 @@ class FormZakatActivity : AppCompatActivity(),AdapterView.OnItemSelectedListener
                     TODO("Not yet implemented")
                 }
             })
-            Log.v("harga",""+datalistHarga)
         }
         else if(parent?.id==R.id.spinner_kk_zakat){
             getBio(spinner_kk_zakat.selectedItem.toString())
+            if (spinner_panitia.selectedItem!=null){
+                if (jenis=="Uang"){
+                    if (spinner_harga.selectedItem!=null){
+                        btn_simpan.visibility=View.VISIBLE
+                    }
+                }
+                else{
+                    btn_simpan.visibility=View.VISIBLE
+                }
+            }
+        }
+        else if (parent?.id==R.id.spinner_harga){
+            if (spinner_panitia.selectedItem!=null && spinner_kk_zakat.selectedItem!=null){
+                btn_simpan.visibility=View.VISIBLE
+            }
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
+        var jenis=spinner_jenis_zakat.selectedItem.toString()
         if (parent?.id==R.id.spinner_panitia){
-            spinner_panitia.requestFocus()
+            btn_simpan.visibility=View.INVISIBLE
         }
         else if (parent?.id==R.id.spinner_kk_zakat){
-            spinner_kk_zakat.requestFocus()
+            btn_simpan.visibility=View.INVISIBLE
         }
-        else if (parent?.id==R.id.spinner_harga && spinner_jenis_zakat.selectedItem.toString()=="Uang"){
-            spinner_harga.requestFocus()
+        else if (parent?.id==R.id.spinner_harga){
+            if (jenis=="Uang"){
+                btn_simpan.visibility=View.INVISIBLE
+            }
         }
     }
 

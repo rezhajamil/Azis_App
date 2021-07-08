@@ -25,6 +25,8 @@
                 android:id="@+id/et_nama"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
                 android:backgroundTint="@color/sekunder"
                 android:ems="10"
                 android:fontFamily="@font/montserrat"
@@ -32,8 +34,8 @@
                 android:textColor="@color/white"
                 android:textColorHighlight="@color/quartener"
                 android:textColorLink="@color/tersier"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
-                tools:layout_editor_absoluteX="24dp"
                 tools:text="Rezha Jamil" />
 
             <TextView
@@ -199,8 +201,8 @@
                 android:id="@+id/et_mesjid"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:backgroundTint="@color/sekunder"
@@ -210,10 +212,12 @@
                 android:textColor="@color/white"
                 android:textColorHighlight="@color/quartener"
                 android:textColorLink="@color/tersier"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13"
-                tools:text="Istiqomah" />
+                app:layout_constraintStart_toEndOf="@+id/tx_mesjid"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_mesjid"
+                tools:text="Istiqomah"
+                tools:visibility="visible" />
 
             <EditText
                 android:id="@+id/et_alamat_mesjid"
@@ -224,6 +228,9 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:backgroundTint="@color/sekunder"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:editable="false"
                 android:ems="10"
                 android:fontFamily="@font/montserrat"
                 android:inputType="textPersonName"
@@ -251,6 +258,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_alamat_mesjid" />
+
+            <Spinner
+                android:id="@+id/spinner_mesjid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:spinnerMode="dialog"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+            <TextView
+                android:id="@+id/tx_mesjid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Mesjid"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_mesjid"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_mesjid" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

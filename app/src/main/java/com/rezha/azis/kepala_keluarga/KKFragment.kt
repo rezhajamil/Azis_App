@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
+import com.rezha.azis.HomeActivity
 import com.rezha.azis.MenuActivity
 import com.rezha.azis.R
 import com.rezha.azis.model.KK
@@ -74,7 +75,8 @@ class KKFragment : Fragment() {
                     }
                 }
                 else{
-                    getData()
+                    activity?.finish()
+                    startActivity(Intent(activity?.applicationContext, HomeActivity::class.java).putExtra("toLoad","KKFragment"))
                 }
 
                 shimmerInfaq.stopShimmer()

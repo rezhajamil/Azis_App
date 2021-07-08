@@ -50,5 +50,10 @@ class ProfileActivity : AppCompatActivity() {
             alert.create()
             alert.show()
         }
+
+        iv_back_profil.setOnClickListener {
+            startActivity(Intent(this@ProfileActivity,MenuActivity::class.java))
+            finish()
+        }
     }
 }

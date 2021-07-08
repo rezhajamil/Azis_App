@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -40,7 +41,7 @@ class FormKKActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             editData(data)
         }
 
-        btn_simpan.setOnClickListener {
+        btn_simpan_kk.setOnClickListener {
             val sNama=et_nama_kk.text.toString().capitalize().trim()
             val sAlamat=et_alamat_kk.text.toString().capitalize().trim()
             var sKK=""
@@ -123,6 +124,7 @@ class FormKKActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private fun editData(data: KK) {
         et_nama_kk.setText(data.nama)
         et_alamat_kk.setText(data.alamat)
+        Log.v("status",""+data.status)
         if (data.status=="Kepala Keluarga"){
             spinner_status.setSelection(0)
         }
@@ -185,10 +187,19 @@ class FormKKActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             et_anggota.visibility=View.GONE
             tv_orang.visibility=View.GONE
         }
+
+        if (parent?.id==R.id.spinner_kk){
+            btn_simpan_kk.visibility=View.VISIBLE
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-
+        var status=spinner_status.selectedItem.toString()
+        if (parent?.id==R.id.spinner_kk){
+            if (status=="Anggota"){
+                btn_simpan_kk.visibility=View.INVISIBLE
+            }
+        }
     }
 
     override fun onBackPressed() {
