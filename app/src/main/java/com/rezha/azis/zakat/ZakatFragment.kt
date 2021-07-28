@@ -1,16 +1,12 @@
 package com.rezha.azis.zakat
 
-import android.app.Activity.RESULT_OK
-import android.app.Dialog
+import android.app.ActionBar
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.provider.DocumentsContract
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -19,23 +15,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.database.*
-import com.itextpdf.kernel.colors.ColorConstants
-import com.itextpdf.kernel.pdf.PdfWriter
-import com.itextpdf.layout.Document
-import com.itextpdf.layout.borders.Border
-import com.itextpdf.layout.element.*
-import com.itextpdf.layout.property.TextAlignment
-import com.itextpdf.layout.property.VerticalAlignment
 import com.rezha.azis.HomeActivity
 import com.rezha.azis.MenuActivity
 import com.rezha.azis.R
-import com.rezha.azis.model.KK
+import com.rezha.azis.model.User
 import com.rezha.azis.model.Zakat
 import com.rezha.azis.utils.Preferences
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.fragment_zakat.*
-import kotlinx.android.synthetic.main.print_dialog2.*
-import java.io.File
-import java.io.FileOutputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -44,9 +31,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ZakatFragment : Fragment(){
+class ZakatFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var dataList = ArrayList<Zakat>()
+    private  var dataMesjid=ArrayList<String>()
     lateinit var preferences: Preferences
     var handler = Handler()
 
@@ -62,6 +50,35 @@ class ZakatFragment : Fragment(){
         super.onActivityCreated(savedInstanceState)
 
         preferences= Preferences(context!!)
+        FirebaseDatabase.getInstance().getReference("User").orderByChild("mesjid").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var nMesjid=""
+                for (snapshot in snapshot.children){
+                    var namaMesjid=snapshot.getValue(User::class.java)
+                    if (nMesjid!=namaMesjid?.mesjid){
+                        dataMesjid.add(namaMesjid?.mesjid!!.toString().capitalize())
+                        Log.v("mesjid",""+dataMesjid)
+                        nMesjid=namaMesjid?.mesjid!!
+                        Log.v("mesjid2",""+dataMesjid)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
+        if (preferences.getValues("role")=="admin"){
+            spinner_mesjid_zakat.visibility=View.VISIBLE
+        }
+        else{
+            spinner_mesjid_zakat.visibility=View.GONE
+        }
+        var adapter= ArrayAdapter(context!!.applicationContext,R.layout.spinner_dropdown_layout_mesjid,dataMesjid)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+        spinner_mesjid_zakat.adapter=adapter
+        spinner_mesjid_zakat.onItemSelectedListener=this
+
         btn_add_zakat.setOnClickListener {
             var intent = Intent(activity, FormZakatActivity::class.java)
             startActivity(intent)
@@ -182,6 +199,16 @@ class ZakatFragment : Fragment(){
             e.printStackTrace()
         }
         return formattedDate
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        tv_pilih_mesjid_zakat.setText("Mesjid "+spinner_mesjid_zakat.selectedItem.toString())
+        preferences.setValues("mesjid",spinner_mesjid_zakat.selectedItem.toString())
+        getData()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
     }
 
 }

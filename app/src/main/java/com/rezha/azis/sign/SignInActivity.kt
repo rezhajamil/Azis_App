@@ -79,6 +79,7 @@ class SignInActivity : AppCompatActivity() {
                         preferences.setValues("telp",user.telp.toString())
                         preferences.setValues("mesjid",user.mesjid.toString())
                         preferences.setValues("alamat_mesjid",user.alamat_mesjid.toString())
+                        preferences.setValues("role",user.role.toString())
                         preferences.setValues("status","1")
 
                         var intent= Intent(this@SignInActivity, MenuActivity::class.java)

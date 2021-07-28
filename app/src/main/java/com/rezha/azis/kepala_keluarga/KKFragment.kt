@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,17 +19,22 @@ import com.rezha.azis.HomeActivity
 import com.rezha.azis.MenuActivity
 import com.rezha.azis.R
 import com.rezha.azis.model.KK
+import com.rezha.azis.model.User
 import com.rezha.azis.utils.Preferences
 import kotlinx.android.synthetic.main.fragment_kk.*
+import kotlinx.android.synthetic.main.fragment_kk.iv_back_menu
+import kotlinx.android.synthetic.main.fragment_panitia.*
+import kotlinx.android.synthetic.main.fragment_zakat.*
 import kotlin.collections.ArrayList
 
 
-class KKFragment : Fragment() {
+class KKFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var preferences: Preferences
     private lateinit var mDatabaseQuery: Query
 
     private var dataList=ArrayList<KK>()
+    private var dataMesjid=ArrayList<String>()
     var handler= Handler()
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -42,7 +49,35 @@ class KKFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         preferences= Preferences(context!!)
+        FirebaseDatabase.getInstance().getReference("User").orderByChild("mesjid").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var nMesjid=""
+                for (snapshot in snapshot.children){
+                    var namaMesjid=snapshot.getValue(User::class.java)
+                    if (nMesjid!=namaMesjid?.mesjid){
+                        dataMesjid.add(namaMesjid?.mesjid!!.toString().capitalize())
+                        Log.v("mesjid",""+dataMesjid)
+                        nMesjid=namaMesjid?.mesjid!!
+                        Log.v("mesjid2",""+dataMesjid)
+                    }
+                }
+            }
 
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+        Log.v("mesjid3",""+dataMesjid)
+
+        if (preferences.getValues("role")=="admin"){
+            spinner_mesjid_kk.visibility=View.VISIBLE
+        }
+        else{
+            spinner_mesjid_kk.visibility=View.GONE
+        }
+        var adapter= ArrayAdapter(context!!.applicationContext,R.layout.spinner_dropdown_layout_mesjid,dataMesjid)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+        spinner_mesjid_kk.adapter=adapter
+        spinner_mesjid_kk.onItemSelectedListener=this
         btn_add_kk.setOnClickListener{
             var intent= Intent(activity, FormKKActivity::class.java)
             startActivity(intent)
@@ -88,6 +123,15 @@ class KKFragment : Fragment() {
             }
 
         })
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        preferences.setValues("mesjid",spinner_mesjid_kk.selectedItem.toString())
+        getData()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
     }
 
 }

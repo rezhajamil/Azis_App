@@ -5,17 +5,28 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import com.google.firebase.database.FirebaseDatabase
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.*
+import com.rezha.azis.kepala_keluarga.KKAdapter
+import com.rezha.azis.kepala_keluarga.KKDetailActivity
+import com.rezha.azis.model.KK
+import com.rezha.azis.model.User
 import com.rezha.azis.sign.EditDataActivity
 import com.rezha.azis.sign.GantiPasswordActivity
 import com.rezha.azis.sign.SignInActivity
+import com.rezha.azis.sign.UserAdapter
 import com.rezha.azis.utils.Preferences
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.fragment_kk.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var preferences: Preferences
+    private lateinit var mDatabaseQuery: Query
+    private var dataList=ArrayList<User>()
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -55,5 +66,60 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this@ProfileActivity,MenuActivity::class.java))
             finish()
         }
+
+        if (preferences.getValues("role")!="admin"){
+            rv_user.visibility=View.GONE
+            tvu.visibility=View.GONE
+        }
+        else{
+            rv_user.layoutManager= LinearLayoutManager(this)
+            getData()
+        }
+    }
+
+    private fun getData() {
+        mDatabaseQuery= FirebaseDatabase.getInstance().getReference("User").orderByChild("username")
+        mDatabaseQuery.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataList.clear()
+                for(getdataSnapshot in snapshot.children){
+                    var user=getdataSnapshot.getValue(User::class.java)
+                    dataList.add(user!!)
+                }
+                if (rv_user!=null){
+                    rv_user.adapter= UserAdapter(dataList){
+                       hapusUser(it)
+                    }
+                }
+                else{
+                    finish()
+                    startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@ProfileActivity,""+error.message, Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
+    private fun hapusUser(it: User) {
+        val data=it
+        var alert= AlertDialog.Builder(this)
+        alert.setTitle("Hapus User "+data.username+" ?")
+        alert.setPositiveButton("Hapus", DialogInterface.OnClickListener{
+            dialog, which ->
+            val dbUser= FirebaseDatabase.getInstance().getReference("User").child(data.username.toString())
+            dbUser.removeValue()
+            Toast.makeText(this,"User telah dihapus", Toast.LENGTH_SHORT).show()
+        })
+        alert.setNegativeButton("Batal", DialogInterface.OnClickListener{
+            dialog, which ->
+            dialog.cancel()
+            dialog.dismiss()
+        })
+        alert.create()
+        alert.show()
     }
 }

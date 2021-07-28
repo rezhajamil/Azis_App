@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/premier">
 
+    <TextView
+        android:id="@+id/tx_mesjid2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Mesjid"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_edit_mesjid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_edit_mesjid" />
+
     <Button
         android:id="@+id/btn_simpan_edit"
         android:layout_width="0dp"
@@ -140,8 +154,8 @@
         android:id="@+id/et_edit_mesjid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:backgroundTint="@color/sekunder"
@@ -152,7 +166,7 @@
         android:textColorHighlight="@color/quartener"
         android:textColorLink="@color/tersier"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tx_mesjid2"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
         tools:text="Istiqomah" />
 

@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -95,6 +96,9 @@ class MenuActivity : AppCompatActivity() {
             finish()
         }
 
+        if (preferences.getValues("role")=="admin"){
+            btn_rekap.visibility= View.GONE
+        }
         btn_rekap.setOnClickListener{
             initDialog()
         }

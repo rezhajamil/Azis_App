@@ -53,12 +53,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spinner_mesjid_kk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:focusable="true"
+            android:visibility="visible"
+            app:hintText="Pilih Mesjid"
+            app:layout_constraintStart_toStartOf="@+id/iv_back_menu"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/iv_back_menu"

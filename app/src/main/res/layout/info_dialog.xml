@@ -52,6 +52,19 @@
                 android:fontFamily="@font/montserrat"
                 android:text="2. Pembayaran Zakat Fitrah dalam bentuk uang  dibayarkan dengan nilai yang setara dengan 3,8 kg per orang dengan harga beras sesuai konsumsi sehari-hari. (Hanafi)"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/montserrat"
+                android:text="3. Keterangan adalah pengalokasian Beras / Uang yang berlebih dari pembayaran zakat."
+                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
 

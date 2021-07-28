@@ -1,13 +1,13 @@
 package com.rezha.azis.sign
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 import com.rezha.azis.MenuActivity
 import com.rezha.azis.R
@@ -43,17 +43,15 @@ class SignUpActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         mDatabaseReference=mFirebaseInstance.getReference("User")
 
         dataMesjid.add("Lainnya")
-        mDatabaseReference.orderByChild("mesjid").addValueEventListener(object : ValueEventListener{
+        mDatabaseReference.orderByChild("mesjid").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var nMesjid=""
-                for (snapshot in snapshot.children){
-                    var namaMesjid=snapshot.getValue(User::class.java)
-                    if (nMesjid!=namaMesjid?.mesjid){
-                        Log.v("mesjid","nMesjid= "+nMesjid)
-                        Log.v("mesjid","namamesjid= "+namaMesjid?.mesjid)
+                var nMesjid = ""
+                for (snapshot in snapshot.children) {
+                    var namaMesjid = snapshot.getValue(User::class.java)
+                    if (nMesjid != namaMesjid?.mesjid) {
                         dataMesjid.add(namaMesjid?.mesjid!!.toString().capitalize())
                         datalist.add(namaMesjid!!)
-                        nMesjid=namaMesjid?.mesjid!!
+                        nMesjid = namaMesjid?.mesjid!!
                     }
                 }
             }
@@ -63,9 +61,8 @@ class SignUpActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
 
         })
-        Log.v("mesjid",""+dataMesjid)
 
-        var adapter= ArrayAdapter(this,R.layout.spinner_dropdown_layout_signup,dataMesjid)
+        var adapter= ArrayAdapter(this, R.layout.spinner_dropdown_layout_signup, dataMesjid)
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
         spinner_mesjid.adapter=adapter
         spinner_mesjid.onItemSelectedListener=this
@@ -123,13 +120,13 @@ class SignUpActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     et_username.requestFocus()
                 }
                 else{
-                    saveUsername(sUsername,sPassword,sNama,sTelp,sMesjid,sAlamat)
+                    saveUsername(sUsername, sPassword, sNama, sTelp, sMesjid, sAlamat)
                 }
             }
         }
 
         iv_back.setOnClickListener {
-            startActivity(Intent(this@SignUpActivity,SignInActivity::class.java))
+            startActivity(Intent(this@SignUpActivity, SignInActivity::class.java))
         }
 
 
@@ -145,38 +142,64 @@ class SignUpActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         user.alamat_mesjid=sAlamat
 
         if(sUsername !=null){
-            checkingUsername(sUsername,user)
+            checkingUsername(sUsername, user)
         }
     }
 
     private fun checkingUsername(sUsername: String, data: User) {
+        var usernull=false
+        var phonenull=false
         mDatabaseReference.child(sUsername).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var user=snapshot.getValue(User::class.java)
-                if(user==null){
-                    mDatabaseReference.child(sUsername).setValue(data)
-                    preferences.setValues("nama", data.nama.toString())
-                    preferences.setValues("username",data.username.toString())
-                    preferences.setValues("password",data.password.toString())
-                    preferences.setValues("url",data.url.toString())
-                    preferences.setValues("telp",data.telp.toString())
-                    preferences.setValues("mesjid",data.mesjid.toString())
-                    preferences.setValues("alamat_mesjid",data.alamat_mesjid.toString())
-                    preferences.setValues("status","1")
-                    startActivity(Intent(this@SignUpActivity,MenuActivity::class.java))
-                    finishAffinity()
-                }
-                else{
-                    Toast.makeText(this@SignUpActivity,"User sudah digunakan", Toast.LENGTH_LONG).show()
+                var user = snapshot.getValue(User::class.java)
+                if (user == null) {
+                    usernull = true
+                } else {
+                    Toast.makeText(this@SignUpActivity, "User sudah digunakan", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@SignUpActivity,""+error.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SignUpActivity, "" + error.message, Toast.LENGTH_LONG).show()
+            }
+
+        })
+        mDatabaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (data in snapshot.children) {
+
+                    var phone = data.child("telp").getValue(String::class.java)
+                    if (phone == sTelp) {
+                        Log.i("phone", data.child("telp").getValue(String::class.java) + "= "+sTelp)
+                        et_telp.error="Nomor Telepon sudah digunakan"
+                        et_telp.requestFocus()
+                        Toast.makeText(this@SignUpActivity, "Nomor Telepon sudah digunakan", Toast.LENGTH_LONG).show()
+                        break
+                    } else {
+                        phonenull = true}
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@SignUpActivity, "" + error.message, Toast.LENGTH_LONG).show()
             }
 
         })
 
+        if (usernull && phonenull){
+            mDatabaseReference.child(sUsername).setValue(data)
+            preferences.setValues("nama", data.nama.toString())
+            preferences.setValues("username", data.username.toString())
+            preferences.setValues("password", data.password.toString())
+            preferences.setValues("url", data.url.toString())
+            preferences.setValues("telp", data.telp.toString())
+            preferences.setValues("mesjid", data.mesjid.toString())
+            preferences.setValues("alamat_mesjid", data.alamat_mesjid.toString())
+            preferences.setValues("role", "user")
+            preferences.setValues("status", "1")
+            startActivity(Intent(this@SignUpActivity, MenuActivity::class.java))
+            finishAffinity()
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

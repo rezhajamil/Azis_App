@@ -5,10 +5,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,8 +30,10 @@ import com.rezha.azis.HomeActivity
 import com.rezha.azis.MenuActivity
 import com.rezha.azis.R
 import com.rezha.azis.model.Panitia
+import com.rezha.azis.model.User
 import com.rezha.azis.utils.Preferences
 import kotlinx.android.synthetic.main.fragment_panitia.*
+import kotlinx.android.synthetic.main.fragment_zakat.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -36,11 +41,12 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
-class PanitiaFragment : Fragment() {
+class PanitiaFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var preferences: Preferences
     private lateinit var mDatabaseQuery: Query
 
     private var dataList=ArrayList<Panitia>()
+    private var dataMesjid=ArrayList<String>()
     var handler= Handler()
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -55,6 +61,36 @@ class PanitiaFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         preferences= Preferences(context!!)
+        FirebaseDatabase.getInstance().getReference("User").orderByChild("mesjid").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var nMesjid=""
+                for (snapshot in snapshot.children){
+                    var namaMesjid=snapshot.getValue(User::class.java)
+                    if (nMesjid!=namaMesjid?.mesjid){
+                        dataMesjid.add(namaMesjid?.mesjid!!.toString().capitalize())
+                        Log.v("mesjid",""+dataMesjid)
+                        nMesjid=namaMesjid?.mesjid!!
+                        Log.v("mesjid2",""+dataMesjid)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+        Log.v("mesjid3",""+dataMesjid)
+
+        if (preferences.getValues("role")=="admin"){
+            spinner_mesjid_panitia.visibility=View.VISIBLE
+        }
+        else{
+            spinner_mesjid_panitia.visibility=View.GONE
+        }
+        var adapter= ArrayAdapter(context!!.applicationContext,R.layout.spinner_dropdown_layout_mesjid,dataMesjid)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+        spinner_mesjid_panitia.adapter=adapter
+        spinner_mesjid_panitia.onItemSelectedListener=this
+
         btn_add_panitia.setOnClickListener{
             var intent= Intent(activity,FormPanitiaActivity::class.java)
             startActivity(intent)
@@ -146,6 +182,15 @@ class PanitiaFragment : Fragment() {
             e.printStackTrace()
         }
         return formattedDate
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        preferences.setValues("mesjid",spinner_mesjid_panitia.selectedItem.toString())
+        getData()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
     }
 
 }

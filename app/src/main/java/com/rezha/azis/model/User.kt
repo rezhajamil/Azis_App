@@ -8,4 +8,5 @@ class User {
     var alamat_mesjid:String?=""
     var url:String?=""
     var username:String?=""
+    var role:String?=""
 }
